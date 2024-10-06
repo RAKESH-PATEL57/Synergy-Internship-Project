@@ -2,7 +2,8 @@
 
 This project is a **React** application that performs CRUD (Create, Read, Update, Delete) operations on user data using the **JSONPlaceholder** API. The app is styled with **CSS** and is developed using **Vite** for fast and optimized performance.
 
-## Live Demo
+## Live Demo [here](https://crudwebapp-rakesh-patel57.netlify.app/)
+
 
 To run the app locally:
 1. Clone the repository
