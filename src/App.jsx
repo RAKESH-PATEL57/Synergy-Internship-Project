@@ -1,15 +1,11 @@
 
-// import CreateUser from './Components/CreateUser'
-import FetchUsers from './Components/FetchUsers'
+import GettingData from './Components/GettingData'
 import './style.css'
 
 function App() {
-  
-
   return (
     <>
-      <FetchUsers />
-      {/* <CreateUser /> */}
+      <GettingData />
     </>
   )
 }
