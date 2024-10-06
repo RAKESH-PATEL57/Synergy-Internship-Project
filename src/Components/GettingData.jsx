@@ -6,10 +6,12 @@ function GettingData() {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [nextUserId, setNextUserId] = useState(1); // Track the next available ID
+  const [loading, setLoading] = useState(true); // Loading state
 
   // Fetching users from API
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true); // Set loading to true before fetching data
       try {
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
         setUsers(response.data);
@@ -18,6 +20,8 @@ function GettingData() {
         setNextUserId(maxId + 1);
       } catch (error) {
         console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
     fetchUsers();
@@ -39,6 +43,7 @@ function GettingData() {
 
   // Handling user update
   const handleUpdate = async (userData) => {
+    if (!selectedUser) return; // Guard clause
     try {
       const response = await axios.put(`https://jsonplaceholder.typicode.com/users/${selectedUser.id}`, userData);
       const updatedUsers = users.map((user) => (user.id === selectedUser.id ? response.data : user));
@@ -71,31 +76,36 @@ function GettingData() {
     <div>
       <h1>User List</h1>
       <button onClick={() => { setIsEditing(true); setSelectedUser(null); }}>Create User</button>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td className='btns'>
-                <button onClick={() => handleEdit(user)}>Edit</button>
-                <button onClick={() => handleDelete(user.id)}>Delete</button>
-              </td>
+
+      {loading ? (
+        <div>Loading...</div> // Display loading message while fetching data
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td className='btns'>
+                  <button onClick={() => handleEdit(user)}>Edit</button>
+                  <button onClick={() => handleDelete(user.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {/* The form for editing or creating a user */}
       {isEditing && (
