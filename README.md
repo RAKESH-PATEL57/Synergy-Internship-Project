@@ -9,23 +9,6 @@ To run the app locally:
 2. Install the dependencies (`npm install`)
 3. Run the app locally (`npm run dev`)
 
-## Folder Structure
-
-├── node_modules        # Dependencies
-├── public              # Static assets
-├── src
-│   ├── assets          # Project assets (e.g., images, fonts, etc.)
-│   ├── Components      # React components
-│   │   ├── GettingData.jsx   # Component to fetch and display user data
-│   ├── App.jsx         # Main app component
-│   ├── main.jsx        # React entry point
-│   ├── style.css       # Global styling for the application
-├── .gitignore          # Ignoring unnecessary files for version control
-├── eslint.config.js    # ESLint configuration for linting JavaScript and JSX
-├── index.html          # Root HTML file for the project
-├── package.json        # Project dependencies and scripts
-├── vite.config.js      # Vite configuration for build optimization
-
 ## Technologies Used
 
 - **React**: The main framework for building the user interface.
