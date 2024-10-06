@@ -73,9 +73,9 @@ function GettingData() {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>User List</h1>
-      <button onClick={() => { setIsEditing(true); setSelectedUser(null); }}>Create User</button>
+      <button id='createUser-btn' onClick={() => { setIsEditing(true); setSelectedUser(null); }}>Create User</button>
 
       {loading ? (
         <div>Loading...</div> // Display loading message while fetching data
@@ -121,6 +121,8 @@ function GettingData() {
               handleCreate(userData);
             }
           }}>
+          <div  className='user_Details'>
+
             <div>
               <label>Name:</label>
               <input type="text" name="name" defaultValue={selectedUser?.name || ''} required />
@@ -134,6 +136,7 @@ function GettingData() {
               <input type="email" name="email" defaultValue={selectedUser?.email || ''} required />
             </div>
             <button type="submit">{selectedUser ? 'Update' : 'Create'}</button>
+          </div>
           </form>
         </div>
       )}
