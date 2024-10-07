@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 function GettingData() {
   const [users, setUsers] = useState([]);
@@ -7,6 +9,8 @@ function GettingData() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [nextUserId, setNextUserId] = useState(1); // Track the next available ID
   const [loading, setLoading] = useState(true); // Loading state
+
+  const[closeBtnClassName,setCloseBtnClassName] = useState('editing_Creating_Container');
 
   // Fetching users from API
   useEffect(() => {
@@ -70,12 +74,14 @@ function GettingData() {
   const handleEdit = (user) => {
     setSelectedUser(user);
     setIsEditing(true);
+    setCloseBtnClassName("editing_Creating_Container");
   };
+
 
   return (
     <div className='container'>
       <h1>User List</h1>
-      <button id='createUser-btn' onClick={() => { setIsEditing(true); setSelectedUser(null); }}>Create User</button>
+      <button id='createUser-btn' onClick={() => { setIsEditing(true); setSelectedUser(null); setCloseBtnClassName("editing_Creating_Container");}}>Create User</button>
 
       {loading ? (
         <div>Loading...</div> // Display loading message while fetching data
@@ -109,7 +115,9 @@ function GettingData() {
 
       {/* The form for editing or creating a user */}
       {isEditing && (
-        <div className='editing_Creating_Container'>
+       
+        <div className={closeBtnClassName} onClick={() => setCloseBtnClassName("close")} >
+           <svg  id='closIcon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
           <h2 className='heading'>{selectedUser ? 'Edit User' : 'Create User'}</h2>
           <form onSubmit={(e) => {
             e.preventDefault();
