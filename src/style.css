@@ -77,6 +77,11 @@ body {
   gap: 1rem;
 }
 
+#searchBar
+{
+  padding: .5rem 1rem;
+}
+
 
 .btns
 {
